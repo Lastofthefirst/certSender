@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    </head>
+<body>
+    <textarea id="myText">
+        Lorem ipsum...
+    </textarea>
+    <input type="email">
+    <input type="email">
+    <input type="email">
+    <input type="email">
+    <input type="email">
+    <input type="email">
+    <input type="email">
+    <input type="email">
+    <input type="email">
+    <input type="email">
+    <input type="email">
+
+    <button onclick="sendMail(); return false">Send</button>
+</body>
+<script>
+function sendMail() {
+    let link = "mailto:me@example.com"
+             + "?cc=myCCaddress@example.com"
+             + "&subject=" + escape("This is my subject")
+             + "&body=" + escape(document.getElementById('myText').value)
+    ;
+
+    window.location.href = link;
+}
+</script>
+    </html>
