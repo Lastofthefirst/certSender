@@ -1,37 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
+        <style>
+            body{
+                background-image: url(https://images.unsplash.com/photo-1551623134-658abf4a311b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80);
+                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            }
+            form{
+                background-color:rgb(252, 252, 252);
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 2px, 2px, 5px, rgb(2, 2, 2);
+            }
+        button{
+            height: 36px;
+            width: 56px;
+            background-color:rgb(185, 209, 209);
+            margin: 2px;
+        }
+        label{
+            margin-top: 100px;
+        }
+        input{
+            height: 36px;
+            width: 150px;
+        }
+        #courseName{
+            width: 500px;
+        }
+        #sendButton{
+            position:fixed;
+            bottom: 10px;
+            right: 30px;
+            width: 80vw;
+        }
+        </style>
     </head>
 <body>
-    <textarea id="myText">
-        Lorem ipsum...
-    </textarea>
+
     <form>
-    <input type="text" id="courseName">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    <input type="email">
-    </form>
-    <button onclick="sendMail(); return false">Send</button>
+            <br>
+            <label>Number of Certificates:</label>
+            <br>
+<button onclick="addFields(1); return false">One</button>
+<button onclick="addFields(2); return false">Two</button>
+<button onclick="addFields(3); return false">Three</button>
+<button onclick="addFields(4); return false">Four</button>
+<button onclick="addFields(5); return false">Five</button>
+<br>
+<button onclick="addFields(6); return false">Six</button>
+<button onclick="addFields(7); return false">Seven</button>
+<button onclick="addFields(8); return false">Eight</button>
+<button onclick="addFields(9); return false">Nine</button>
+<button onclick="addFields(10); return false">Ten</button>
+<br>
+        <label> Course Name:
+    <input type="text" id="courseName"></label>
+    <div id="container"></div>
+    </form> 
+
+
+
+    <button id="sendButton" onclick="sendMail(); return false">Send</button>
 </body>
 <script>
-function sendMail() {
-    let link = "mailto:me@example.com"
-             + "?cc=myCCaddress@example.com"
-             + "&subject=" + escape("This is my subject")
-             + "&body=" + escape(document.getElementById('myText').value)
-    ;
 
-    window.location.href = link;
+function addFields(number){
+            let container = document.getElementById("container");
+            // Clear previous contents of the container
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (i=0;i<number;i++){
+                // Append a node with a random text
+                container.appendChild(document.createTextNode("Email " + (i+1)));
+                // Create an <input> element, set its type and name attributes
+                let emailInput = document.createElement("input");
+                emailInput.type = "email";
+                emailInput.className = 'recipient';
+                container.appendChild(emailInput);
+                // Append a line break 
+                container.appendChild(document.createTextNode("Name " + (i+1)));
+
+                let nameInput = document.createElement("input");
+                nameInput.type = "text";
+                nameInput.className = 'learnerName';
+                container.appendChild(nameInput);
+                container.appendChild(document.createElement("br"));
+            }
+        }
+function sendMail() {
+    // pull input infomration into an object
+    let mailInfo = {
+        address: document.getElementsByClassName('recipient'),
+        learnerName: document.getElementsByClassName('learnerName'),
+        course: document.getElementById('courseName').value,
+    };
+    //for each email input sends an email with email and name of the same iterator
+    for (let property in mailInfo.address) {
+    if (mailInfo.address.hasOwnProperty(property)) {
+        let email = mailInfo.address[property].value;
+        let name = mailInfo.learnerName[property].value;
+        let emailBody = `Dear ${name}:%0D%0A %0D%0A
+We are pleased to send the attached Certificate of Completion for the Wilmette Institute course: ${mailInfo.course}. Thank you for completing the self-assessment survey telling us about your course experience.  We are always eager to hear more about how the Wilmette Institute serves our participants, faculty and learners alike.
+ %0D%0A %0D%0A
+ The Wilmette Institute continues to grow and expand and now has hosted participants from 126 different countries and territories.  Exceptional courses and web talks are being organized for the 2019 bicentenary of the birth of the Báb.  You can learn more about these plans at this page on the Wilmette Institute website.
+ %0D%0A %0D%0A
+ The attached Certificate of Completion may be printed out and shared with friends and family. To help you choose your next course, our new Course Catalog is searchable by Department or by keyword, and contains all of the 2019 courses currently open for registration. We are happy to have had you as a member of our online Bahá'í Learning Center and hope to see you again in the forums soon.
+ %0D%0A %0D%0A
+ Sincerely, %0D%0A
+ Quddús George, %0D%0A
+ Digital Support Assistant, %0D%0A
+ For the Wilmette Institute %0D%0A
+ qgeorge@wilmetteinstitute.org %0D%0A
+ %0D%0A
+ 1233 Central Street%0D%0A
+ Evanston, IL 60201, USA%0D%0A
+ 1.877.WILMETTE (1-877-945-6388) %0D%0A
+ wi@usbnc.org; learn@wilmetteinstitute.org`;
+ let link = "mailto:" + email + '?cc=learn@wilmetteinstitute.org&subject=Wilmette Institute Certificate' + "&body=" + emailBody;
+    ;
+    window.location.href = link; 
+    }
+}
 }
 </script>
     </html>
