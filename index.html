@@ -104,7 +104,7 @@ function sendMail() {
         let email = mailInfo.address[property].value;
         let name = mailInfo.learnerName[property].value;
         let emailBody = `Dear ${name}:%0D%0A %0D%0A
-We are pleased to send the attached Certificate of Completion for the Wilmette Institute course: ${mailInfo.course}. Thank you for completing the self-assessment survey telling us about your course experience.  We are always eager to hear more about how the Wilmette Institute serves our participants, faculty and learners alike.
+We are pleased to send the attached Certificate of Completion for the Wilmette Institute course: ${mailInfo.course}. Thank you for completing the self-assessment survey telling us about your course experience. We are always eager to hear more about how the Wilmette Institute serves our participants, faculty and learners alike.
  %0D%0A %0D%0A`;
  let link = "mailto:" + email + '?cc=learn@wilmetteinstitute.org&subject=Wilmette Institute Certificate' + "&body=" + emailBody;
     ;
